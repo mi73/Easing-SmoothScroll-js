@@ -1,29 +1,46 @@
 /*--------------------------------------------------------------------------*
  *  
  *  SmoothScroll JavaScript Library V2 modified by mi73
- *  
+ *  Inner scroll with Easing curve
+ *  document.smoothScroll(element|idName) is Available in external scope.
+ *
  *  MIT-style license.
  *
- *  original - 2007-2011 Kazuma Nishihata
- *  modified - 2012 Yohei Minami
- *  
+ *  ＠originalAuthor Kazuma Nishihata
+ *  ＠modifier Yohei Minami
+ *  @access  public
+ *  @facebook  yohei.minami
+ *  @twitter  mi73
+ *  @modifier  2012/10/18
+ *  @version 0.0.1
  *--------------------------------------------------------------------------*/
 
 (function (_document) {
 
     var
-        scrollDulation = 1000, //scroll seconds (millsecond)
-        animationType = "easeOutQuart", // recommend : easeOutQuart
+        // scroll seconds (millsecond)
+        // スクロールにかかる時間を設定(ミリ秒)
+        scrollDulation = 1000,
+
+        // Easing Curve Function. The list is below.  RECOMMEND : easeOutQuart　
+        // イージングカーブタイプ 一覧は下の方にあります。  オススメ : easeOutQuart
+        animationType = "easeOutQuart",
+
+        // Default interval time is 6ms
+        // タイマーインターバルは6ミリ秒としています。
         stepMs = 6,
 
-        attr = "class", //for html5 , if you can't use html5 , this value change "class"
+        //attr = "data-for-smoothScroll", // if you can't use html5 , this value change "class"
+        attr = "class", //for html5
+
+        // If you don't need, set class or data-for-smoothScroll "noSmooth"
+        // 必要ない要素には、classまたはdata-for-smoothScroll属性にnoSmoothとセットしてください。
         attrPatt = /noSmooth/,
+
         d = document, //document short cut
         easingFunction; //Easing Function
 
-    /*
-     *add Event
-     -------------------------------------------------*/
+
     function addEvent(elm, listener, fn) {
         try { // IE
             elm.addEventListener(listener, fn, false);
@@ -37,9 +54,6 @@
         }
     }
 
-    /*
-     *Start SmoothScroll
-     -------------------------------------------------*/
     function SmoothScroll(a) {
 
         var e, end, docHeight, winHeight, start, flag, hashing;
@@ -59,7 +73,6 @@
             e = a;
         }
 
-        //Move point
         end = e.offsetTop;
         if (navigator.userAgent.indexOf('Android') > 0 && end == 0) end = 2;
         docHeight = d.documentElement.scrollHeight;
@@ -68,10 +81,8 @@
             end = docHeight - winHeight;
         }
 
-        //Current Point
         start = window.pageYOffset || d.documentElement.scrollTop || d.body.scrollTop || 0;
         flag = (end < start) ? "up" : "down";
-
 
         hashing = function () {
             if (typeof a == "string")location.hash = a;
