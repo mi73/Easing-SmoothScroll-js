@@ -7,7 +7,7 @@ Modified SmoothScroll.js with easing functions and more usability.
 ## How to use
 
 JUST write script tag in your HTML.
-And you can use `document.smoothScroll(idName);`
+And you can use `document.smoothScroll(idName|elementObject);`
 
 
 ## Original code
